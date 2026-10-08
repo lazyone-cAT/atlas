@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlas — worldbuilding &amp; story writer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6efe1;
+    --paper-2:#efe6d3;
+    --ink:#2c2620;
+    --pencil:#6b6156;
+    --rule:#cfd9e6;
+    --red:#d9736a;
+    --pen:#2f5fa8;
+    --marker:#f5d359;
+    --gold:#c9a77c;
+    --tape:rgba(245,211,89,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  body{
+    color:var(--ink);
+    font-family:"Kalam","Comic Sans MS",cursive;
+    line-height:1.65;
+    background-color:var(--paper);
+    /* ruled notebook paper + faint grid */
+    background-image:
+      linear-gradient(90deg, transparent 0 46px, rgba(217,115,106,.45) 46px 48px, transparent 48px),
+      repeating-linear-gradient(180deg, transparent 0 33px, var(--rule) 33px 34px);
+    background-attachment:fixed;
+    min-height:100vh;
+  }
+
+  .page{max-width:900px;margin:0 auto;padding:56px 22px 70px 78px}
+
+  /* ---------- handwriting bits ---------- */
+  .scribble{font-family:"Caveat",cursive}
+  .hand-note{font-family:"Patrick Hand",cursive;color:var(--pencil)}
+
+  .kicker{
+    display:inline-block;font-family:"Patrick Hand",cursive;
+    color:var(--pen);border-bottom:2px solid var(--pen);
+    transform:rotate(-1.5deg);letter-spacing:.04em;font-size:17px
+  }
+
+  h1{
+    font-family:"Caveat",cursive;font-weight:700;
+    font-size:clamp(52px,10vw,96px);line-height:.95;
+    margin:14px 0 6px;transform:rotate(-1.2deg);
+    text-shadow:1px 1px 0 rgba(0,0,0,.06);
+  }
+  h1 .under{
+    position:relative;display:inline-block;
+  }
+  h1 .under::after{
+    content:"";position:absolute;left:-4px;right:-6px;bottom:-6px;height:14px;
+    background:linear-gradient(180deg, transparent 32%, var(--marker) 32%, var(--marker) 82%, transparent 82%);
+    transform:rotate(-.7deg);z-index:-1;
+  }
+  h1 em{display:block;font-style:normal;color:var(--pen);font-size:.44em;transform:rotate(-.6deg)}
+
+  .intro{
+    font-size:19px;max-width:600px;margin-top:20px;color:#463f37;
+    transform:rotate(.2deg);
+  }
+
+  /* ---------- hand drawn button ---------- */
+  .dl{
+    position:relative;display:inline-block;margin-top:30px;
+    font-family:"Caveat",cursive;font-weight:700;font-size:30px;
+    color:var(--ink);text-decoration:none;padding:14px 34px 16px;
+    background:var(--marker);
+    border:3px solid var(--ink);
+    border-radius:255px 18px 225px 18px/18px 225px 18px 255px;
+    box-shadow:4px 5px 0 var(--ink);
+    transform:rotate(-1.4deg);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .dl:hover{transform:rotate(-1.4deg) translate(2px,3px);box-shadow:2px 2px 0 var(--ink)}
+  .dl:active{transform:rotate(-1.4deg) translate(4px,5px);box-shadow:0 0 0 var(--ink)}
+  .dl .arrow{display:inline-block;transform:rotate(8deg);margin-right:8px}
+
+  .under-btn{margin-top:12px;font-size:16.5px;color:var(--pencil);transform:rotate(-.4deg)}
+  .under-btn b{color:var(--ink)}
+
+  /* ---------- feature index cards ---------- */
+  .cards{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:34px 28px;margin-top:64px;
+  }
+  .card{
+    position:relative;background:#fffdf6;
+    border:2.5px solid var(--ink);
+    padding:26px 22px 22px;
+    box-shadow:3px 4px 0 rgba(44,38,32,.75);
+  }
+  .card:nth-child(1){transform:rotate(-1.6deg);border-radius:6px 14px 8px 16px}
+  .card:nth-child(2){transform:rotate(1.1deg);border-radius:14px 6px 16px 8px}
+  .card:nth-child(3){transform:rotate(-.7deg);border-radius:8px 16px 6px 14px}
+  .card:nth-child(4){transform:rotate(1.6deg);border-radius:16px 8px 14px 6px}
+
+  /* washi tape */
+  .card::before{
+    content:"";position:absolute;top:-13px;left:50%;width:96px;height:26px;
+    background:var(--tape);
+    border-left:1px dashed rgba(0,0,0,.18);border-right:1px dashed rgba(0,0,0,.18);
+    transform:translateX(-50%) rotate(-3deg);
+    box-shadow:0 1px 2px rgba(0,0,0,.08);
+  }
+  .card:nth-child(even)::before{background:rgba(125,178,214,.42);transform:translateX(-50%) rotate(4deg)}
+
+  .card h3{
+    font-family:"Caveat",cursive;font-size:31px;font-weight:700;
+    color:var(--pen);margin-bottom:4px;
+  }
+  .card p{font-size:17px;color:#4a433b}
+  .card .num{
+    position:absolute;top:-16px;left:-14px;width:38px;height:38px;
+    display:grid;place-items:center;font-family:"Caveat",cursive;font-weight:700;font-size:22px;
+    background:#fffdf6;border:2.5px solid var(--ink);border-radius:50%;
+    transform:rotate(-8deg);
+  }
+
+  /* ---------- sticky note ---------- */
+  .note{
+    position:relative;margin-top:62px;padding:26px 26px 24px;
+    background:#fde9a6;border:2.5px solid var(--ink);
+    box-shadow:4px 5px 0 rgba(44,38,32,.7);
+    transform:rotate(-.8deg);
+    max-width:660px;
+  }
+  .note::after{
+    content:"";position:absolute;top:-12px;right:26px;width:84px;height:24px;
+    background:rgba(217,115,106,.45);transform:rotate(6deg);
+    border-left:1px dashed rgba(0,0,0,.18);border-right:1px dashed rgba(0,0,0,.18);
+  }
+  .note h4{font-family:"Caveat",cursive;font-size:28px;color:var(--ink);margin-bottom:4px}
+  .note ol{margin:6px 0 0 22px;font-size:17px;color:#4a433b}
+  .note li{margin:3px 0}
+  .note li::marker{color:var(--red);font-weight:700}
+
+  /* ---------- doodles ---------- */
+  .doodle-star{position:absolute;width:44px;height:44px;opacity:.75}
+  .head-wrap{position:relative}
+
+  .divider{margin:66px 0 0;display:block;width:100%;height:26px;color:var(--pencil)}
+
+  footer{
+    margin-top:18px;font-family:"Patrick Hand",cursive;
+    color:var(--pencil);font-size:17px;display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center
+  }
+  footer a{color:var(--pen);text-decoration:none;border-bottom:2px wavy var(--pen)}
+
+  @media (max-width:560px){
+    .page{padding:40px 16px 60px 60px}
+    .card{transform:none !important}
+    .note{transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head-wrap">
+    <!-- doodled star -->
+    <svg class="doodle-star" style="top:-6px;right:8px" viewBox="0 0 40 40" fill="none" stroke="#d9736a" stroke-width="2.4" stroke-linecap="round">
+      <path d="M20 4 L24 15 L36 16 L27 24 L30 36 L20 29 L10 36 L13 24 L4 16 L16 15 Z"/>
+    </svg>
+
+    <span class="kicker">android app · apk download</span>
+
+    <h1>
+      <span class="under">Atlas</span>
+      <em>worldbuilding &amp; story writer</em>
+    </h1>
+
+    <p class="intro">
+      a sketchbook-style writing app — hand-drawn glass UI, wikis for your characters
+      and places, a multi-chapter story editor, covers, tags and background themes.
+    </p>
+
+    <!-- Replace YOUR_GITHUB_USERNAME if your handle differs -->
+    <a class="dl" href="https://github.com/YOUR_GITHUB_USERNAME/AtlasNative/releases/latest/download/Atlas-debug.apk">
+      <span class="arrow">⤓</span>Download the APK
+    </a>
+    <p class="under-btn hand-note">
+      <b>v1.0</b> · ~21 MB · Android 8.0+ · written by hand, shipped by GitHub
+    </p>
+  </div>
+
+  <section class="cards">
+    <article class="card">
+      <span class="num">1</span>
+      <h3>wiki</h3>
+      <p>characters, places, items, lore — tag them, search them, cross-link them.</p>
+    </article>
+
+    <article class="card">
+      <span class="num">2</span>
+      <h3>story editor</h3>
+      <p>chapters, live word count, auto-save, and a blurred page to write on.</p>
+    </article>
+
+    <article class="card">
+      <span class="num">3</span>
+      <h3>sketchbook look</h3>
+      <p>wobbly borders, squiggle underlines, tape corners and cursive type everywhere.</p>
+    </article>
+
+    <article class="card">
+      <span class="num">4</span>
+      <h3>themes</h3>
+      <p>eight background moods, your own editor wallpaper, profile picture, fonts.</p>
+    </article>
+  </section>
+
+  <aside class="note">
+    <h4>installing it ↓</h4>
+    <ol>
+      <li>tap <b>Download the APK</b> above</li>
+      <li>open the file when it finishes</li>
+      <li>let Android <b>install from unknown sources</b> (“allow this source”)</li>
+      <li>open Atlas &amp; start a world</li>
+    </ol>
+  </aside>
+
+  <!-- hand-drawn divider -->
+  <svg class="divider" viewBox="0 0 900 26" preserveAspectRatio="none" fill="none"
+       stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+    <path d="M4 14 C 60 4, 120 22, 180 12 S 300 4, 360 14 S 480 22, 540 11 S 660 4, 720 15 S 840 21, 896 10"/>
+  </svg>
+
+  <footer>
+    <span>made in a notebook, then compiled</span>
+    <a href="https://github.com/YOUR_GITHUB_USERNAME/AtlasNative">source on github</a>
+    <a href="https://github.com/YOUR_GITHUB_USERNAME/AtlasNative/releases/latest">all releases</a>
+  </footer>
+</div>
+</body>
+</html>

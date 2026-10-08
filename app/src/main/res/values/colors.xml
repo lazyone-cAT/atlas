@@ -1,0 +1,19 @@
+<resources>
+    <color name="ink">#12162A</color>
+    <color name="ink2">#191F3A</color>
+    <color name="ink3">#212948</color>
+    <color name="line">#323A5E</color>
+    <color name="parchment">#F3EAD6</color>
+    <color name="parchment_dim">#C9C2AD</color>
+
+    <color name="gold">#C9A24D</color>
+    <color name="gold_dim">#8D7538</color>
+    <color name="teal">#4F8A7B</color>
+    <color name="rust">#B1543A</color>
+    <color name="lilac">#8D7BB0</color>
+    <color name="amber">#D98F4E</color>
+    <color name="blue">#6F93B8</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
